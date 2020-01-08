@@ -26,6 +26,18 @@ function clearall(){
 }
 
 function ralarm(e){
+
+
+e.sort(compareSecondColumn);
+
+function compareSecondColumn(a, b) {
+    if (a[2] === b[2]) {
+        return 0;
+    }
+    else {
+        return (a[2] < b[2]) ? -1 : 1;
+    }
+}
   chrome.alarms.clearAll();
   for(var i = 0;i<e.length;i++){
     var a = 'this is ' + i
@@ -235,7 +247,7 @@ function load(){
 //   console.log(hist)
 // });
 
-var ebin = [0.1,1,120,360,720,1440,2880,5760,11660,0.5]
+var ebin = [1,5,30,120,360,720,1440,2880,5760,11660]
 
 function storeName() {
   var lhist;
