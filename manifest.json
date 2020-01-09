@@ -1,9 +1,7 @@
 
-
-
 {
   "manifest_version": 2,
-  "name": "Test Extension",
+  "name": "骐骥一跃，不能十步",
   "description": "Example Chrome Extension",
   "version": "1.0",
   "author": "Jude Giordano",
