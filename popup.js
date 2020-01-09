@@ -15,11 +15,11 @@ let clearAm = document.getElementById("al");
 
 var sortlist = new Array()
 var hist = new Array()
-var blist = new Array()
-var plist = new Array()
+var booklist = new Array()
+var pianolist = new Array()
 
 let dream = document.getElementById("dream");
-let bl = document.getElementById("bl");
+let booklover = document.getElementById("booklover");
 
 
 // Copyright 2017 The Chromium Authors. All rights reserved.
@@ -38,15 +38,29 @@ cla.addEventListener("click", clear);
 hista.addEventListener("click", showHist);
 
 function showbook(){
+ 
+  w.empty();
+  console.log(booklist)
+  if(booklist){
 
 
+  for(var i  = 0;i<booklist.length;i++) {
+   
+      w.append('<li value = i>' +booklist[i][0]+'   ------   '+booklist[i][1]+'<button class="delebook" value=' +i+'>delete</button></li>')
+      w.append('<br>')
+      booklover.value = "";
+    
 
+      
+    }
 
 }
 
+} 
+
 function clearall(){
   chrome.alarms.clearAll();
-  window.close();
+
 }
 
 function ralarm(e){
@@ -191,16 +205,6 @@ function showHist(){
 
 }
 
-function showBlist(){
-  w.empty();
-  for(var i  = 0;i<booklist.length;i++) {
-    w.append('<li value = i>' +booklist[i][0]+ '   ------   '+booklist[i][1]+'<button class="delehis" value=' +i+'>delete</button></li>')
-    w.append('<br>')
-
-
-  }
-
-}
 // dele.addEventListener("click", remm);
 
 chrome.storage.local.remove(["Key1","key2"],function(){
@@ -357,20 +361,26 @@ function store() {
 
 
   } 
-  if (bl.value.trim() !== "") {
+
+
+  if (booklover.value.trim() !== "") {
+
     if(typeof booklist === "undefined"){
-      lblsit = 0
+      lblist = 0
+
       booklist = new Array(0)
+      alert(booklist)
     }else{
       lblist  = booklist.length;
     }
     var tempbook = new Array(2)
     booklist[lblist] = tempbook
-    booklist[lblist][0] = bl.value
+    booklist[lblist][0] = booklover.value
+
     booklist[lblist][1] = new Date().toLocaleString();
 
     chrome.storage.local.set({ 'booklist': (booklist)}, function() {});
-    showBlist();
+    showbook();
 
   }
 }
