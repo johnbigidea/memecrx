@@ -16,7 +16,7 @@ let clearAm = document.getElementById("al");
 var sortlist = new Array()
 var hist = new Array()
 var booklist = new Array()
-var pianolist = new Array()
+// var pianolist = new Array()
 
 let dream = document.getElementById("dream");
 let booklover = document.getElementById("booklover");
@@ -188,6 +188,44 @@ w.on('click','.delehis',function(e){
 
   
 })
+w.on('click','.delebook',function(e){
+
+  // $(this).parent().remove();
+
+    if(confirm('are you sure')){
+      if(confirm('are you really sure')){
+
+        var ahachuanhis = e.target.value
+        alert(ahachuanhis)
+        alert(booklist)
+
+
+
+        booklist.splice(ahachuanhis,1)
+        alert(booklist)
+
+     
+        chrome.storage.local.set({ 'booklist': (booklist)}, function() {
+       });
+       showbook();
+     
+
+
+        alert('done')
+      }else{
+        alert('undo')
+      }
+    
+    }else{
+      alert('you save data')
+  
+    }
+  
+
+  //  updateShow(sortlist);
+
+  
+})
 
 
 
@@ -249,11 +287,11 @@ function load(){
 
 
   });
-  chrome.storage.local.get('pianolist', function(result){
-    pianolist = result.pianolist;
+  // chrome.storage.local.get('pianolist', function(result){
+  // //   pianolist = result.pianolist;
 
 
-  });
+  // // });
 
 
   chrome.storage.local.get('sortlist', function(result){
@@ -316,7 +354,7 @@ function store() {
   var lhist;
   var l;
   var lblist;
-  var lplist;
+  // var lplist;
   if (dream.value.trim() !== "") {
     
     if(typeof sortlist === "undefined"){
@@ -369,7 +407,7 @@ function store() {
       lblist = 0
 
       booklist = new Array(0)
-      alert(booklist)
+
     }else{
       lblist  = booklist.length;
     }
