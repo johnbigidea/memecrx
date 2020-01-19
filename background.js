@@ -15,7 +15,7 @@ chrome.alarms.onAlarm.addListener(function() {
       title:    '提醒一下，兄弟',
       message:  b,
       priority: 0,
-      requireInteraction:true
+      requireInteraction:false
     };
 
   

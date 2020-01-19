@@ -196,13 +196,12 @@ w.on('click','.delebook',function(e){
       if(confirm('are you really sure')){
 
         var ahachuanhis = e.target.value
-        alert(ahachuanhis)
-        alert(booklist)
+
 
 
 
         booklist.splice(ahachuanhis,1)
-        alert(booklist)
+
 
      
         chrome.storage.local.set({ 'booklist': (booklist)}, function() {
@@ -348,7 +347,7 @@ function load(){
 //   console.log(hist)
 // });
 
-var ebin = [0.1,30,120,360,720,1440,2880,5760,11660,28888]
+var ebin = [5,30,120,360,720,1440,2880,5760,11660,28888]
 
 function store() {
   var lhist;
