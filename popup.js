@@ -4,6 +4,7 @@ let btn = document.getElementById("btn");
 
 let cla = document.getElementById("cla");
 let hista = document.getElementById("hista");
+let bl = document.getElementById("bl");
 let nex = document.getElementById("nex");
 let welcome = document.getElementById("welcome");
 let sa = document.getElementById("sa");
@@ -11,6 +12,7 @@ nex.addEventListener("click", reshow);
 var sortlist = new Array()
 var hist = new Array()
 var w = $('ol')
+var downb = $('#downbar')
 let clearAm = document.getElementById("al");
 
 var sortlist = new Array()
@@ -37,14 +39,34 @@ btn.addEventListener("click", store);
 cla.addEventListener("click", clear);
 hista.addEventListener("click", showHist);
 
-function showbook(){
- 
+downb.on('click','.ppbutton',function(e){
   w.empty();
-  console.log(booklist)
-  if(booklist){
 
 
-  for(var i  = 0;i<booklist.length;i++) {
+  showSome(e.target.value)
+
+
+  
+
+  //  updateShow(sortlist);
+
+  
+})
+
+function showBar(pp){
+  downb.empty()
+  for(var i = 0;i<pp;i++){
+    downb.append('<button class="ppbutton" value=' +i+'>'+i+'</button>')
+
+
+  }
+
+
+}
+
+function showSome(ppsome){
+  w.empty();
+    for(var i  = ppsome*10;i<ppsome*10+10;i++) {
    
       w.append('<li value = i>' +booklist[i][0]+'   ------   '+booklist[i][1]+'<button class="delebook" value=' +i+'>delete</button></li>')
       w.append('<br>')
@@ -53,6 +75,29 @@ function showbook(){
 
       
     }
+
+
+}
+
+function showbook(){
+
+ 
+  w.empty();
+
+  if(booklist){
+    if(booklist.length>10){
+
+      showSome(0)
+      var pages = Math.floor(booklist.length/10)+1
+      showBar(pages)
+
+      
+    }
+    else{
+      showSome(0)
+
+    }
+    
 
 }
 
@@ -113,6 +158,7 @@ function reshowall(){
 
 }
 
+
 } 
 
 
@@ -145,7 +191,7 @@ w.on('click','.dele',function(e){
    sortlist.splice(ahashuchuan,1)
 
    chrome.storage.local.set({ 'sortlist': (sortlist)}, ralarm(sortlist));
-   reshow();
+   reshowall();
 
 
   //  updateShow(sortlist);
@@ -191,34 +237,43 @@ w.on('click','.delehis',function(e){
 w.on('click','.delebook',function(e){
 
   // $(this).parent().remove();
-
-    if(confirm('are you sure')){
-      if(confirm('are you really sure')){
-
-        var ahachuanhis = e.target.value
+  var ahachuanhis = e.target.value
 
 
 
 
-        booklist.splice(ahachuanhis,1)
+  booklist.splice(ahachuanhis,1)
+
+
+
+  chrome.storage.local.set({ 'booklist': (booklist)}, function() {
+ });
+ showbook();
+
+    // if(confirm('are you sure')){
+    //   if(confirm('are you really sure')){
+
+    //     var ahachuanhis = e.target.value
+
+
+
+
+    //     booklist.splice(ahachuanhis,1)
 
 
      
-        chrome.storage.local.set({ 'booklist': (booklist)}, function() {
-       });
-       showbook();
+    //     chrome.storage.local.set({ 'booklist': (booklist)}, function() {
+    //    });
+    //    showbook();
      
-
-
-        alert('done')
-      }else{
-        alert('undo')
-      }
+    //   }else{
+    //     alert('undo')
+    //   }
     
-    }else{
-      alert('you save data')
+    // }else{
+    //   alert('you save data')
   
-    }
+    // }
   
 
   //  updateShow(sortlist);
