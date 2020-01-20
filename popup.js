@@ -190,7 +190,7 @@ w.on('click','.dele',function(e){
    console.log(sortlist)
    sortlist.splice(ahashuchuan,1)
 
-   chrome.storage.local.set({ 'sortlist': (sortlist)}, ralarm(sortlist));
+   chrome.storage.sync.set({ 'sortlist': (sortlist)}, ralarm(sortlist));
    reshowall();
 
 
@@ -210,7 +210,7 @@ w.on('click','.delehis',function(e){
 
         hist.splice(ahachuanhis,1)
      
-        chrome.storage.local.set({ 'hist': (hist)}, function() {
+        chrome.storage.sync.set({ 'hist': (hist)}, function() {
        });
      
        w.empty()
@@ -246,7 +246,7 @@ w.on('click','.delebook',function(e){
 
 
 
-  chrome.storage.local.set({ 'booklist': (booklist)}, function() {
+  chrome.storage.sync.set({ 'booklist': (booklist)}, function() {
  });
  showbook();
 
@@ -262,7 +262,7 @@ w.on('click','.delebook',function(e){
 
 
      
-    //     chrome.storage.local.set({ 'booklist': (booklist)}, function() {
+    //     chrome.storage.sync.set({ 'booklist': (booklist)}, function() {
     //    });
     //    showbook();
      
@@ -288,18 +288,21 @@ w.on('click','.delebook',function(e){
 
 function showHist(){
   w.empty();
-  for(var i  = 0;i<hist.length;i++) {
-    w.append('<li value = i>' +hist[i][0]+ '   ------   '+hist[i][1]+'<button class="delehis" value=' +i+'>delete</button></li>')
-    w.append('<br>')
-
-
+  if(hist){
+    for(var i  = 0;i<hist.length;i++) {
+      w.append('<li value = i>' +hist[i][0]+ '   ------   '+hist[i][1]+'<button class="delehis" value=' +i+'>delete</button></li>')
+      w.append('<br>')
+  
+  
+    }
   }
+
 
 }
 
 // dele.addEventListener("click", remm);
 
-chrome.storage.local.remove(["Key1","key2"],function(){
+chrome.storage.sync.remove(["Key1","key2"],function(){
   var error = chrome.runtime.lastError;
   if (error) {
     console.error(error);
@@ -309,7 +312,7 @@ chrome.storage.local.remove(["Key1","key2"],function(){
 function clear(){
   if(confirm('are you sure')){
     if(confirm('are you really sure')){
-      chrome.storage.local.clear(function(obj){
+      chrome.storage.sync.clear(function(obj){
         clearall();
         console.log("cleared");
         window.location.reload();
@@ -331,24 +334,24 @@ function clear(){
 
 load();
 function load(){
-  chrome.storage.local.get('hist', function(result){
+  chrome.storage.sync.get('hist', function(result){
     hist = result.hist;
 
 
   });
-  chrome.storage.local.get('booklist', function(result){
+  chrome.storage.sync.get('booklist', function(result){
     booklist = result.booklist;
 
 
   });
-  // chrome.storage.local.get('pianolist', function(result){
+  // chrome.storage.sync.get('pianolist', function(result){
   // //   pianolist = result.pianolist;
 
 
   // // });
 
 
-  chrome.storage.local.get('sortlist', function(result){
+  chrome.storage.sync.get('sortlist', function(result){
     sortlist = result.sortlist;
     console.log(sortlist)
 
@@ -367,7 +370,7 @@ function load(){
   });
 }
 
-// chrome.storage.local.get('key2', function(result) {
+// chrome.storage.sync.get('key2', function(result) {
 //   // welcome.innerHTML = `Welcome, ${result.key}`;
 //   w.empty();
 //   console.log(result.key2)
@@ -381,7 +384,7 @@ function load(){
 //   console(sortlist.length)
   
 // });
-// chrome.storage.local.get('key1', function(result2) {
+// chrome.storage.sync.get('key1', function(result2) {
 //   console.log('asdf')
 //   console.log(result2)
 //   hist = result2.key1
@@ -389,7 +392,7 @@ function load(){
 
 // });
 
-// chrome.storage.local.get({ key: (hist)}, function(result) {
+// chrome.storage.sync.get({ key: (hist)}, function(result) {
 //   // welcome.innerHTML = `Welcome, ${result.key}`;
   
 //   for(var i  = 0;i<result.key.length;i++) {
@@ -443,9 +446,9 @@ function store() {
      hist[lhist][0] = dream.value
      hist[lhist][1] = new Date().toLocaleString();
 
-    chrome.storage.local.set({ 'hist': (hist)}, function() {});
+    chrome.storage.sync.set({ 'hist': (hist)}, function() {});
 
-    chrome.storage.local.set({ 'sortlist': (sortlist)}, ralarm(sortlist));
+    chrome.storage.sync.set({ 'sortlist': (sortlist)}, ralarm(sortlist));
 
     welcome.innerHTML = `NEW, ${sortlist[l][0]}`;
     reshow();
@@ -471,7 +474,7 @@ function store() {
 
     booklist[lblist][1] = new Date().toLocaleString();
 
-    chrome.storage.local.set({ 'booklist': (booklist)}, function() {});
+    chrome.storage.sync.set({ 'booklist': (booklist)}, function() {});
     showbook();
 
   }
